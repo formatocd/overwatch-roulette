@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overwatch Roulette</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+        integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="src/main.css">
+</head>
+
+<body class="bg-gradient-to-b from-gray-500 to-gray-800">
+    <div class="p-2 text-gray-700 text-center bg-white">
+        Created by <a class="underline" href="https://twitter.com/carlosdurannet" target="_blank">Carlos Durán</a> (<a class="underline" href="https://twitter.com/frostylogan" target="_blank">FrostyLogan</a>)
+    </div>
+    <div class="h-screen flex">
+        <div class="m-auto">
+            <h1 class="text-center text-white font-bold text-5xl py-4 uppercase mb-10">Overwatch Roulette</h1>
+            <div id="portrait-border"
+                class="mx-auto mb-2 bg-gradient-to-b from-blue-300 to-indigo-500 overflow-hidden rounded-md border-white border-4">
+                <img id="hero-portrait" src="portraits/00.png">
+            </div>
+            <div class="mb-10 text-white text-center text-2xl" 
+                id="hero-name">Desconocido</div>
+            <div class="mb-10 flex mx-auto">
+                <a class="type-link py-2 px-4 flex font-bold uppercase text-white text-2xl rounded-md bg-yellow-500"
+                    data-typeid="0"
+                    href="#">Todos</a>
+                <a class="type-link py-2 px-4 flex font-bold uppercase text-white text-2xl rounded-md"
+                data-typeid="1"
+                    href="#">Tanque</a>
+                <a class="type-link py-2 px-4 flex font-bold uppercase text-white text-2xl rounded-md"
+                    data-typeid="2"
+                    href="#">DPS</a>
+                <a class="type-link py-2 px-4 flex font-bold uppercase text-white text-2xl rounded-md"
+                data-typeid="3"
+                    href="#">Support</a>
+            </div>
+            <div class="text-center">
+                <button id="launch-btn"
+                    class="stopped ow-yellow-bg w-52 rounded-md uppercase text-white font-bold text-xl py-2 hover:bg-yellow-600 tracking-widest text-3xl">Barajar</button>
+            </div>
+        </div>
+        
+    </div>
+    <script defer src="src/main.js"></script>
+</body>
+
+</html>
