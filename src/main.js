@@ -1,9 +1,7 @@
-// src/main.js
 const TANK = 1;
 const DPS = 2;
 const SUPPORT = 3;
 
-// ICONOS PARA EL BOTÓN BARAJAR
 const iconBarajar = `
     <svg class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
@@ -16,7 +14,6 @@ const iconParar = `
     </svg>
 `;
 
-// NUEVO ICONO DE "PARANDO..." (Spinner de carga)
 const iconParando = `
     <svg class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -25,7 +22,6 @@ const iconParando = `
 `;
 
 const heroes = [
-    // TANQUES
     { name: 'Domina', type: TANK, portrait: 'domina' },
     { name: 'D. VA', type: TANK, portrait: 'dva' },
     { name: 'Hazard', type: TANK, portrait: 'hazard' },
@@ -39,8 +35,6 @@ const heroes = [
     { name: 'Winston', type: TANK, portrait: 'winston' },
     { name: 'Wrecking Ball', type: TANK, portrait: 'wrecking-ball' },
     { name: 'Zarya', type: TANK, portrait: 'zarya' },
-
-    // DPS
     { name: 'Anran', type: DPS, portrait: 'anran' },
     { name: 'Ashe', type: DPS, portrait: 'ashe' },
     { name: 'Bastion', type: DPS, portrait: 'bastion' },
@@ -64,8 +58,6 @@ const heroes = [
     { name: 'Vendetta', type: DPS, portrait: 'vendetta' },
     { name: 'Venture', type: DPS, portrait: 'venture' },
     { name: 'Widowmaker', type: DPS, portrait: 'widowmaker' },
-
-    // APOYO
     { name: 'Ana', type: SUPPORT, portrait: 'ana' },
     { name: 'Baptiste', type: SUPPORT, portrait: 'baptiste' },
     { name: 'Brigitte', type: SUPPORT, portrait: 'brigitte' },
@@ -82,7 +74,6 @@ const heroes = [
     { name: 'Zenyatta', type: SUPPORT, portrait: 'zenyatta' }
 ];
 
-// PRECARGA DE IMÁGENES 
 const preloadedImages = {}; 
 heroes.forEach(hero => {
     const img = new Image();
@@ -95,7 +86,6 @@ let isSpinning = false;
 let isStopping = false;
 let currentDelay = 50; 
 
-// Dibuja la cuadrícula separando por roles
 const renderRoster = () => {
     const container = document.getElementById('roster-container');
     container.innerHTML = ''; 
@@ -119,7 +109,6 @@ const renderRoster = () => {
         col.appendChild(title);
 
         const grid = document.createElement('div');
-        // Hemos cambiado justify-start por justify-center aquí:
         grid.className = 'flex flex-wrap justify-center gap-1 w-full sm:max-w-[280px] md:max-w-[340px] xl:max-w-[420px]'; 
 
         catHeroes.forEach(hero => {
@@ -152,7 +141,6 @@ const selectHero = () => {
     const randomIndex = Math.floor(Math.random() * validHeroes.length);
     const hero = validHeroes[randomIndex];
 
-    // 1. Limpiamos estado visual del Roster
     heroes.forEach(h => {
         const imgEl = document.getElementById(`img-${h.portrait}`);
         const containerEl = document.getElementById(`hero-${h.portrait}`);
@@ -164,7 +152,6 @@ const selectHero = () => {
         }
     });
 
-    // 2. Resaltamos al héroe elegido en el Roster
     const activeImg = document.getElementById(`img-${hero.portrait}`);
     const activeContainer = document.getElementById(`hero-${hero.portrait}`);
     
@@ -175,14 +162,12 @@ const selectHero = () => {
         activeContainer.classList.add('border-2', 'border-orange-500', 'scale-[1.15]', 'z-10', 'shadow-lg');
     }
     
-    // 3. Actualizamos el nombre y el retrato grande
     const heroName = document.getElementById('hero-name');
     heroName.innerHTML = hero.name;
     
     const heroPortrait = document.getElementById('hero-portrait');
     heroPortrait.src = preloadedImages[hero.portrait];
     
-    // Le damos un poco de borde al retrato grande durante el giro
     document.getElementById('portrait-border').classList.add('border-orange-600/50');
 };
 
@@ -191,14 +176,11 @@ const setFinalStyles = () => {
     const nameSpan = document.getElementById('hero-name');
     const portraitBorder = document.getElementById('portrait-border');
     
-    // Estilos del contenedor: recuadro naranja
     nameContainer.classList.add('bg-orange-600', 'rounded-xl', 'shadow-lg', 'transform', 'scale-110');
     
-    // Aseguramos que el texto sea blanco limpio
     nameSpan.classList.remove('text-orange-500', 'text-orange-600', 'text-gray-400'); 
     nameSpan.classList.add('text-white');
     
-    // Estilos retrato: borde naranja fuerte
     portraitBorder.classList.remove('border-transparent', 'border-orange-600/50');
     portraitBorder.classList.add('border-orange-600', 'ring-4', 'ring-orange-600/30');
 };
@@ -208,14 +190,11 @@ const clearFinalStyles = () => {
     const nameSpan = document.getElementById('hero-name');
     const portraitBorder = document.getElementById('portrait-border');
     
-    // Devolvemos el contenedor a su estado normal (sin fondo naranja)
     nameContainer.classList.remove('bg-orange-600', 'rounded-xl', 'shadow-lg', 'transform', 'scale-110');
     
-    // Quitamos el blanco y volvemos a poner el naranja de "buscando"
     nameSpan.classList.remove('text-white', 'text-gray-400');
     nameSpan.classList.add('text-orange-500'); 
     
-    // Devolvemos el retrato a su estado normal
     portraitBorder.classList.remove('border-orange-600', 'ring-4', 'ring-orange-600/30');
     portraitBorder.classList.add('border-transparent');
 };
@@ -249,7 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const launchBtn = document.getElementById('launch-btn');
 
-    // Nos aseguramos de inyectar el icono inicial al cargar la página
     launchBtn.innerHTML = iconBarajar;
 
     launchBtn.addEventListener('click', () => {
@@ -278,28 +256,23 @@ document.addEventListener('DOMContentLoaded', () => {
             ev.preventDefault();
             if (isSpinning) return; 
 
-            // 1. A todos los botones les quitamos el naranja y les ponemos el fondo tenue
             document.querySelectorAll('.type-link').forEach(link => {
                 link.classList.remove('bg-orange-600');
                 link.classList.add('bg-white/10', 'hover:bg-white/20'); 
             });
             
-            // 2. Al botón seleccionado, le quitamos el hover y le ponemos el naranja
             ev.currentTarget.classList.remove('bg-white/10', 'hover:bg-white/20');
             ev.currentTarget.classList.add('bg-orange-600');
 
-            // 3. NUEVO: Efecto de difuminación en la cuadrícula de personajes
             const selectedType = parseInt(ev.currentTarget.dataset.typeid, 10);
             
             document.querySelectorAll('.role-column').forEach(col => {
                 const colType = parseInt(col.dataset.roleType, 10);
                 
                 if (selectedType === 0 || selectedType === colType) {
-                    // Si elegimos "ALL" (0) o es el rol activo: 100% visible
                     col.classList.remove('opacity-30', 'grayscale', 'blur-[1px]', 'pointer-events-none');
                     col.classList.add('opacity-100');
                 } else {
-                    // Si no es el rol seleccionado: difuminado, escala de grises y bloqueado
                     col.classList.remove('opacity-100');
                     col.classList.add('opacity-30', 'grayscale', 'blur-[1px]', 'pointer-events-none');
                 }
