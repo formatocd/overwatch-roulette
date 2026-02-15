@@ -3,6 +3,27 @@ const TANK = 1;
 const DPS = 2;
 const SUPPORT = 3;
 
+// ICONOS PARA EL BOTÓN BARAJAR
+const iconBarajar = `
+    <svg class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+    </svg>
+`;
+
+const iconParar = `
+    <svg class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="6" width="12" height="12" rx="2" ry="2"></rect>
+    </svg>
+`;
+
+// NUEVO ICONO DE "PARANDO..." (Spinner de carga)
+const iconParando = `
+    <svg class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+`;
+
 const heroes = [
     // TANQUES
     { name: 'Domina', type: TANK, portrait: 'domina' },
@@ -61,11 +82,6 @@ const heroes = [
     { name: 'Zenyatta', type: SUPPORT, portrait: 'zenyatta' }
 ];
 
-// Iconos para el botón
-const iconShuffle = `<svg class="w-8 h-8 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>`;
-const iconStop = `<svg class="w-8 h-8 md:w-12 md:h-12" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="6" width="12" height="12" rx="2"></rect></svg>`;
-const iconLoader = `<svg class="animate-spin w-8 h-8 md:w-12 md:h-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
-
 // PRECARGA DE IMÁGENES 
 const preloadedImages = {}; 
 heroes.forEach(hero => {
@@ -79,13 +95,13 @@ let isSpinning = false;
 let isStopping = false;
 let currentDelay = 50; 
 
-// Dibuja la cuadrícula separando por roles (ajustado para dos filas)
+// Dibuja la cuadrícula separando por roles
 const renderRoster = () => {
     const container = document.getElementById('roster-container');
     container.innerHTML = ''; 
 
     const categories = [
-        { type: TANK, name: 'Tanque', icon: '🛡️' }, // Puedes cambiar los emojis por SVGs después si quieres
+        { type: TANK, name: 'Tanque', icon: '🛡️' }, 
         { type: DPS, name: 'Daño', icon: '⚔️' },
         { type: SUPPORT, name: 'Apoyo', icon: '✚' }
     ];
@@ -94,22 +110,19 @@ const renderRoster = () => {
         const catHeroes = heroes.filter(h => h.type === cat.type);
         
         const col = document.createElement('div');
-        // Usamos flex-1 para que se distribuyan equitativamente, o anchos fijos según prefieras
-        col.className = 'flex flex-col bg-gray-800/40 p-4 rounded-xl shadow-lg border border-gray-700/50';
+        col.className = 'flex flex-col items-start px-2 sm:px-0 mb-6 lg:mb-0';
         
         const title = document.createElement('h2');
-        title.className = 'text-gray-200 font-bold text-sm md:text-md mb-3 uppercase tracking-widest flex items-center gap-2';
+        title.className = 'text-gray-200 text-sm md:text-base mb-2 pb-1 border-b-[3px] border-orange-600 uppercase tracking-widest flex items-center gap-2 w-full';
         title.innerHTML = `<span>${cat.icon}</span> ${cat.name}`;
         col.appendChild(title);
 
         const grid = document.createElement('div');
-        // Cambiamos el ancho fijo a algo más fluido. 
-        // max-w-[400px] o similar obligará a que salten a la segunda fila de forma natural
-        grid.className = 'flex flex-wrap gap-1 w-full sm:max-w-[280px] md:max-w-[340px] xl:max-w-[420px]'; 
+        // Hemos cambiado justify-start por justify-center aquí:
+        grid.className = 'flex flex-wrap justify-center gap-1 w-full sm:max-w-[280px] md:max-w-[340px] xl:max-w-[420px]'; 
 
         catHeroes.forEach(hero => {
             const imgContainer = document.createElement('div');
-            // Miniaturas un poco más apaisadas o cuadradas según el diseño de OW
             imgContainer.className = 'relative w-[45px] h-[55px] sm:w-[50px] sm:h-[60px] transition-all duration-75 ease-in-out bg-gray-600 rounded cursor-pointer overflow-hidden border border-transparent';
             imgContainer.id = `hero-${hero.portrait}`;
 
@@ -146,7 +159,6 @@ const selectHero = () => {
             imgEl.classList.remove('opacity-100');
             imgEl.classList.add('opacity-60');
             containerEl.classList.remove('border-orange-500', 'scale-[1.15]', 'z-10', 'shadow-lg');
-            // Opcional: añadimos un pequeño fondo blanco para simular el borde original
             containerEl.classList.add('border-transparent');
         }
     });
@@ -159,7 +171,6 @@ const selectHero = () => {
         activeImg.classList.remove('opacity-60');
         activeImg.classList.add('opacity-100');
         activeContainer.classList.remove('border-transparent');
-        // Efecto visual más sutil para que no rompa la cuadrícula
         activeContainer.classList.add('border-2', 'border-orange-500', 'scale-[1.15]', 'z-10', 'shadow-lg');
     }
     
@@ -175,7 +186,6 @@ const selectHero = () => {
 };
 
 const setFinalStyles = () => {
-    // Aplicamos los estilos finales al texto y retrato cuando la ruleta se para
     const nameContainer = document.getElementById('hero-name-container');
     const nameSpan = document.getElementById('hero-name');
     const portraitBorder = document.getElementById('portrait-border');
@@ -183,7 +193,7 @@ const setFinalStyles = () => {
     // Estilos del contenedor: recuadro naranja
     nameContainer.classList.add('bg-orange-600', 'rounded-xl', 'shadow-lg', 'transform', 'scale-110');
     
-    // MUY IMPORTANTE: Quitamos TODOS los colores anteriores antes de poner el blanco
+    // Aseguramos que el texto sea blanco limpio
     nameSpan.classList.remove('text-orange-500', 'text-orange-600', 'text-gray-400'); 
     nameSpan.classList.add('text-white');
     
@@ -193,7 +203,6 @@ const setFinalStyles = () => {
 };
 
 const clearFinalStyles = () => {
-    // Quitamos los estilos finales cuando empieza a girar
     const nameContainer = document.getElementById('hero-name-container');
     const nameSpan = document.getElementById('hero-name');
     const portraitBorder = document.getElementById('portrait-border');
@@ -201,7 +210,7 @@ const clearFinalStyles = () => {
     // Devolvemos el contenedor a su estado normal (sin fondo naranja)
     nameContainer.classList.remove('bg-orange-600', 'rounded-xl', 'shadow-lg', 'transform', 'scale-110');
     
-    // MUY IMPORTANTE: Quitamos el blanco y volvemos a poner el naranja
+    // Quitamos el blanco y volvemos a poner el naranja de "buscando"
     nameSpan.classList.remove('text-white', 'text-gray-400');
     nameSpan.classList.add('text-orange-500'); 
     
@@ -220,11 +229,11 @@ const spin = () => {
             isSpinning = false;
             isStopping = false;
             
-            // Llamamos a la función que aplica los estilos finales
             setFinalStyles();
             
             const launchBtn = document.getElementById('launch-btn');
-            launchBtn.innerHTML = 'Barajar';
+            launchBtn.innerHTML = iconBarajar;
+            launchBtn.title = 'Barajar';
             launchBtn.classList.add('stopped');
             launchBtn.disabled = false;
             return; 
@@ -237,10 +246,10 @@ const spin = () => {
 document.addEventListener('DOMContentLoaded', () => {
     renderRoster();
 
-    // Estado inicial visual
-    document.getElementById('hero-name').classList.add('text-gray-400');
-
     const launchBtn = document.getElementById('launch-btn');
+
+    // Nos aseguramos de inyectar el icono inicial al cargar la página
+    launchBtn.innerHTML = iconBarajar;
 
     launchBtn.addEventListener('click', () => {
         if (!isSpinning) {
@@ -248,14 +257,16 @@ document.addEventListener('DOMContentLoaded', () => {
             isStopping = false;
             currentDelay = 50;
             
-            clearFinalStyles(); // Limpiamos estilos antes de girar
+            clearFinalStyles(); 
             
             launchBtn.classList.remove('stopped');
-            launchBtn.innerHTML = 'Parar';
+            launchBtn.innerHTML = iconParar;
+            launchBtn.title = 'Parar';
             spin();
         } else if (!isStopping) {
             isStopping = true;
-            launchBtn.innerHTML = 'Parando...';
+            launchBtn.innerHTML = iconParando;
+            launchBtn.title = 'Parando...';
             launchBtn.disabled = true; 
         }
     });
@@ -266,13 +277,12 @@ document.addEventListener('DOMContentLoaded', () => {
             ev.preventDefault();
             if (isSpinning) return; 
 
-            // Corregido el bug del bg-yellow-500
             document.querySelectorAll('.type-link').forEach(link => {
                 link.classList.remove('bg-orange-600');
                 link.classList.add('bg-white/10'); 
             });
-            ev.target.classList.remove('bg-white/10');
-            ev.target.classList.add('bg-orange-600');
+            ev.currentTarget.classList.remove('bg-white/10');
+            ev.currentTarget.classList.add('bg-orange-600');
         }, false)
     );
 });

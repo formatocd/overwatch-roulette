@@ -9,70 +9,95 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="src/main.css">
 </head>
 
 <body class="bg-gradient-to-b from-gray-500 to-gray-800 min-h-screen font-rubik text-white overflow-x-hidden">
-    
+
     <div class="p-2 text-gray-700 text-center bg-white shadow-md z-50 relative">
-        Created by <a class="underline hover:text-blue-500" href="https://twitter.com/carlosdurannet" target="_blank">Carlos Durán</a> (<a class="underline hover:text-blue-500" href="https://twitter.com/frostylogan" target="_blank">FrostyLogan</a>)
+        Created by <a class="underline hover:text-blue-500" href="https://twitter.com/carlosdurannet"
+            target="_blank">Carlos Durán</a> (<a class="underline hover:text-blue-500"
+            href="https://twitter.com/frostylogan" target="_blank">FrostyLogan</a>)
     </div>
-    
+
     <div class="flex flex-col items-center justify-start min-h-[calc(100vh-40px)] py-8 px-4">
-        
-        <h1 class="text-center text-white font-bold text-4xl md:text-5xl py-4 uppercase mb-2 tracking-wider">Overwatch Roulette</h1>
-        
+
+        <h1 class="text-center text-white font-bold text-4xl md:text-5xl py-4 uppercase mb-2 tracking-wider">Overwatch
+            Roulette</h1>
+
         <div class="flex flex-col items-center justify-center w-full max-w-5xl mx-auto mb-10">
-    
-    <div id="hero-name-container" class="mb-6 transition-all duration-300">
-        <span id="hero-name" class="text-center text-2xl md:text-3xl font-bold uppercase tracking-wide px-6 py-2 block text-gray-400">
-            ¿A quién jugarás?
-        </span>
-    </div>
 
-    <div class="flex flex-row items-center justify-between w-full">
-        
-        <div class="flex-1 flex justify-end pr-4 sm:pr-8 md:pr-12">
-            <div class="flex flex-row flex-wrap justify-end gap-2 sm:gap-3 md:gap-4 max-w-[140px] lg:max-w-none">
-                <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-xs sm:text-sm bg-orange-600 transition-all duration-200 shadow-lg hover:scale-110" data-typeid="0" href="#" title="Todos">
-                    ALL
-                </a>
-                <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-lg sm:text-xl md:text-2xl bg-white/10 hover:bg-white/20 transition-all duration-200 shadow-lg hover:scale-110" data-typeid="1" href="#" title="Tanque">
-                    🛡️
-                </a>
-                <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-lg sm:text-xl md:text-2xl bg-white/10 hover:bg-white/20 transition-all duration-200 shadow-lg hover:scale-110" data-typeid="2" href="#" title="DPS">
-                    ⚔️
-                </a>
-                <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-xl sm:text-2xl md:text-3xl bg-white/10 hover:bg-white/20 transition-all duration-200 shadow-lg hover:scale-110" data-typeid="3" href="#" title="Apoyo">
-                    ✚
-                </a>
+            <div id="hero-name-container" class="mb-6 transition-all duration-300">
+                <span id="hero-name"
+                    class="text-center text-2xl md:text-3xl font-bold uppercase tracking-wide px-6 py-2 block text-gray-400">
+                    ¿A quién jugarás?
+                </span>
             </div>
-        </div>
 
-        <div id="portrait-border" class="bg-gray-700 overflow-hidden rounded-xl shadow-2xl relative border-2 border-transparent transition-all duration-300 flex-shrink-0">
-            <div class="absolute inset-0 flex items-center justify-center text-gray-500 z-0">
-                <svg class="w-10 h-10 sm:w-12 sm:h-12 opacity-50" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
-            </div>
-            <img id="hero-portrait" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Hero Portrait" class="w-full h-full object-cover relative z-10 transition-opacity duration-200">
-        </div>
+            <div class="flex flex-row items-center justify-between w-full">
 
-        <div class="flex-1 flex justify-start pl-4 sm:pl-8 md:pl-12">
-            <button id="launch-btn" class="stopped ow-orange-bg w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center text-center text-white font-bold text-[10px] sm:text-xs md:text-base uppercase hover:brightness-110 tracking-wider transition-all duration-200 transform hover:scale-105 shadow-xl break-words px-2 leading-tight">
-                Barajar
-            </button>
-        </div>
-        
-    </div>
-</div>
-        
-        <div class="w-full max-w-[1400px]">
-            <div id="roster-container" class="flex flex-col lg:flex-row justify-center items-start gap-4 xl:gap-8 mb-10 w-full">
+                <div class="flex-1 flex justify-end pr-4 sm:pr-8 md:pr-12">
+                    <div
+                        class="flex flex-row flex-wrap justify-end gap-2 sm:gap-3 md:gap-4 max-w-[140px] lg:max-w-none">
+                        <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-xs sm:text-sm bg-orange-600 transition-all duration-200 shadow-lg hover:scale-110"
+                            data-typeid="0" href="#" title="Todos">
+                            ALL
+                        </a>
+                        <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-lg sm:text-xl md:text-2xl bg-white/10 hover:bg-white/20 transition-all duration-200 shadow-lg hover:scale-110"
+                            data-typeid="1" href="#" title="Tanque">
+                            🛡️
+                        </a>
+                        <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-lg sm:text-xl md:text-2xl bg-white/10 hover:bg-white/20 transition-all duration-200 shadow-lg hover:scale-110"
+                            data-typeid="2" href="#" title="DPS">
+                            ⚔️
+                        </a>
+                        <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-xl sm:text-2xl md:text-3xl bg-white/10 hover:bg-white/20 transition-all duration-200 shadow-lg hover:scale-110"
+                            data-typeid="3" href="#" title="Apoyo">
+                            ✚
+                        </a>
+                    </div>
                 </div>
+
+                <div id="portrait-border"
+                    class="bg-gray-700 overflow-hidden rounded-xl shadow-2xl relative border-2 border-transparent transition-all duration-300 flex-shrink-0">
+                    <div class="absolute inset-0 flex items-center justify-center text-gray-500 z-0">
+                        <svg class="w-10 h-10 sm:w-12 sm:h-12 opacity-50" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <img id="hero-portrait" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                        alt="Hero Portrait"
+                        class="w-full h-full object-cover relative z-10 transition-opacity duration-200">
+                </div>
+
+                <div class="flex-1 flex justify-start pl-4 sm:pl-8 md:pl-12">
+                    <button id="launch-btn" title="Barajar"
+                        class="stopped ow-orange-bg w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all duration-200 transform hover:scale-105 shadow-xl">
+                        <svg class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="w-full max-w-[1400px]">
+            <div id="roster-container"
+                class="flex flex-col lg:flex-row justify-center items-start gap-4 xl:gap-8 mb-10 w-full">
+            </div>
         </div>
 
     </div>
-    
+
     <script defer src="src/main.js"></script>
 </body>
 
