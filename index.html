@@ -10,32 +10,30 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="src/main.css">
 </head>
 
 <body class="bg-gradient-to-b from-gray-500 to-gray-800 min-h-screen font-rubik">
     <div class="p-2 text-gray-700 text-center bg-white shadow-md">
-        Created by <a class="underline hover:text-blue-500" href="https://twitter.com/formatocdes" target="_blank">Carlos Durán</a> (<a class="underline hover:text-blue-500" href="https://twitter.com/frostylogan" target="_blank">FrostyLogan</a>)
+        Created by <a class="underline hover:text-blue-500" href="https://twitter.com/carlosdurannet" target="_blank">Carlos Durán</a> (<a class="underline hover:text-blue-500" href="https://twitter.com/frostylogan" target="_blank">FrostyLogan</a>)
     </div>
     
-    <div class="flex flex-col items-center justify-center min-h-[calc(100vh-40px)]">
-        <div class="m-auto w-full max-w-2xl px-4">
-            <h1 class="text-center text-white font-bold text-5xl py-4 uppercase mb-10 tracking-wider">Overwatch Roulette</h1>
+    <div class="flex flex-col items-center justify-center min-h-[calc(100vh-40px)] py-8">
+        <div class="m-auto w-full max-w-6xl px-4">
+            <h1 class="text-center text-white font-bold text-5xl py-4 uppercase mb-8 tracking-wider">Overwatch Roulette</h1>
             
-            <div id="portrait-border" class="mx-auto mb-2 bg-gradient-to-b from-blue-300 to-indigo-500 overflow-hidden rounded-md border-white border-4 shadow-lg">
-                <img id="hero-portrait" src="portraits/00.png" alt="Hero Portrait" class="w-full h-auto object-cover">
-            </div>
+            <div id="roster-container" class="flex flex-col md:flex-row justify-center gap-6 mb-8">
+                </div>
             
-            <div class="mb-10 text-white text-center text-3xl font-bold uppercase tracking-wide" id="hero-name">
-                Desconocido
+            <div class="mb-8 text-yellow-400 text-center text-4xl font-bold uppercase tracking-wide drop-shadow-lg" id="hero-name">
+                ¿A quién jugarás?
             </div>
             
             <div class="mb-10 flex flex-wrap justify-center gap-4 mx-auto">
                 <a class="type-link py-2 px-6 flex font-bold uppercase text-white text-xl rounded-md bg-yellow-500 transition-colors duration-200" data-typeid="0" href="#">Todos</a>
-                <a class="type-link py-2 px-6 flex font-bold uppercase text-white text-xl rounded-md hover:bg-white/20 transition-colors duration-200" data-typeid="1" href="#">Tanque</a>
-                <a class="type-link py-2 px-6 flex font-bold uppercase text-white text-xl rounded-md hover:bg-white/20 transition-colors duration-200" data-typeid="2" href="#">DPS</a>
-                <a class="type-link py-2 px-6 flex font-bold uppercase text-white text-xl rounded-md hover:bg-white/20 transition-colors duration-200" data-typeid="3" href="#">Support</a>
+                <a class="type-link py-2 px-6 flex font-bold uppercase text-white text-xl rounded-md bg-white/10 hover:bg-white/20 transition-colors duration-200" data-typeid="1" href="#">Tanque</a>
+                <a class="type-link py-2 px-6 flex font-bold uppercase text-white text-xl rounded-md bg-white/10 hover:bg-white/20 transition-colors duration-200" data-typeid="2" href="#">DPS</a>
+                <a class="type-link py-2 px-6 flex font-bold uppercase text-white text-xl rounded-md bg-white/10 hover:bg-white/20 transition-colors duration-200" data-typeid="3" href="#">Support</a>
             </div>
             
             <div class="text-center">
