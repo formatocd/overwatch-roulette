@@ -110,7 +110,8 @@ const renderRoster = () => {
         const catHeroes = heroes.filter(h => h.type === cat.type);
         
         const col = document.createElement('div');
-        col.className = 'flex flex-col items-start px-2 sm:px-0 mb-6 lg:mb-0';
+        col.className = 'role-column flex flex-col items-start px-2 sm:px-0 mb-6 lg:mb-0 transition-all duration-500 opacity-100';
+        col.dataset.roleType = cat.type;
         
         const title = document.createElement('h2');
         title.className = 'text-gray-200 text-sm md:text-base mb-2 pb-1 border-b-[3px] border-orange-600 uppercase tracking-widest flex items-center gap-2 w-full';
@@ -277,15 +278,32 @@ document.addEventListener('DOMContentLoaded', () => {
             ev.preventDefault();
             if (isSpinning) return; 
 
-            // 1. A todos los botones les quitamos el naranja y les ponemos el fondo tenue CON su efecto hover
+            // 1. A todos los botones les quitamos el naranja y les ponemos el fondo tenue
             document.querySelectorAll('.type-link').forEach(link => {
                 link.classList.remove('bg-orange-600');
                 link.classList.add('bg-white/10', 'hover:bg-white/20'); 
             });
             
-            // 2. Al botón seleccionado, le quitamos el fondo tenue y el hover para que el naranja brille sin interrupciones
+            // 2. Al botón seleccionado, le quitamos el hover y le ponemos el naranja
             ev.currentTarget.classList.remove('bg-white/10', 'hover:bg-white/20');
             ev.currentTarget.classList.add('bg-orange-600');
+
+            // 3. NUEVO: Efecto de difuminación en la cuadrícula de personajes
+            const selectedType = parseInt(ev.currentTarget.dataset.typeid, 10);
+            
+            document.querySelectorAll('.role-column').forEach(col => {
+                const colType = parseInt(col.dataset.roleType, 10);
+                
+                if (selectedType === 0 || selectedType === colType) {
+                    // Si elegimos "ALL" (0) o es el rol activo: 100% visible
+                    col.classList.remove('opacity-30', 'grayscale', 'blur-[1px]', 'pointer-events-none');
+                    col.classList.add('opacity-100');
+                } else {
+                    // Si no es el rol seleccionado: difuminado, escala de grises y bloqueado
+                    col.classList.remove('opacity-100');
+                    col.classList.add('opacity-30', 'grayscale', 'blur-[1px]', 'pointer-events-none');
+                }
+            });
         }, false)
     );
 });
