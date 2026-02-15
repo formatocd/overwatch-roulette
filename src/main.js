@@ -61,6 +61,11 @@ const heroes = [
     { name: 'Zenyatta', type: SUPPORT, portrait: 'zenyatta' }
 ];
 
+// Iconos para el botón
+const iconShuffle = `<svg class="w-8 h-8 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>`;
+const iconStop = `<svg class="w-8 h-8 md:w-12 md:h-12" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="6" width="12" height="12" rx="2"></rect></svg>`;
+const iconLoader = `<svg class="animate-spin w-8 h-8 md:w-12 md:h-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
+
 // PRECARGA DE IMÁGENES 
 const preloadedImages = {}; 
 heroes.forEach(hero => {
@@ -219,7 +224,7 @@ const spin = () => {
             setFinalStyles();
             
             const launchBtn = document.getElementById('launch-btn');
-            launchBtn.textContent = 'Barajar';
+            launchBtn.innerHTML = 'Barajar';
             launchBtn.classList.add('stopped');
             launchBtn.disabled = false;
             return; 
@@ -246,11 +251,11 @@ document.addEventListener('DOMContentLoaded', () => {
             clearFinalStyles(); // Limpiamos estilos antes de girar
             
             launchBtn.classList.remove('stopped');
-            launchBtn.textContent = 'Parar';
+            launchBtn.innerHTML = 'Parar';
             spin();
         } else if (!isStopping) {
             isStopping = true;
-            launchBtn.textContent = 'Parando...';
+            launchBtn.innerHTML = 'Parando...';
             launchBtn.disabled = true; 
         }
     });
