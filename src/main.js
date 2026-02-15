@@ -277,11 +277,14 @@ document.addEventListener('DOMContentLoaded', () => {
             ev.preventDefault();
             if (isSpinning) return; 
 
+            // 1. A todos los botones les quitamos el naranja y les ponemos el fondo tenue CON su efecto hover
             document.querySelectorAll('.type-link').forEach(link => {
                 link.classList.remove('bg-orange-600');
-                link.classList.add('bg-white/10'); 
+                link.classList.add('bg-white/10', 'hover:bg-white/20'); 
             });
-            ev.currentTarget.classList.remove('bg-white/10');
+            
+            // 2. Al botón seleccionado, le quitamos el fondo tenue y el hover para que el naranja brille sin interrupciones
+            ev.currentTarget.classList.remove('bg-white/10', 'hover:bg-white/20');
             ev.currentTarget.classList.add('bg-orange-600');
         }, false)
     );
