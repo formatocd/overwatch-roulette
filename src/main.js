@@ -91,9 +91,9 @@ const renderRoster = () => {
     container.innerHTML = ''; 
 
     const categories = [
-        { type: TANK, name: 'Tanque', icon: '🛡️' }, 
-        { type: DPS, name: 'Daño', icon: '⚔️' },
-        { type: SUPPORT, name: 'Apoyo', icon: '✚' }
+        { type: TANK, name: 'Tank', icon: '🛡️' }, 
+        { type: DPS, name: 'DPS', icon: '⚔️' },
+        { type: SUPPORT, name: 'Support', icon: '✚' }
     ];
 
     categories.forEach(cat => {
