@@ -13,35 +13,48 @@
     <link rel="stylesheet" href="src/main.css">
 </head>
 
-<body class="bg-gradient-to-b from-gray-500 to-gray-800 min-h-screen font-rubik">
-    <div class="p-2 text-gray-700 text-center bg-white shadow-md">
+<body class="bg-gradient-to-b from-gray-500 to-gray-800 min-h-screen font-rubik text-white overflow-x-hidden">
+    <div class="p-2 text-gray-700 text-center bg-white shadow-md z-50 relative">
         Created by <a class="underline hover:text-blue-500" href="https://twitter.com/carlosdurannet" target="_blank">Carlos Durán</a> (<a class="underline hover:text-blue-500" href="https://twitter.com/frostylogan" target="_blank">FrostyLogan</a>)
     </div>
     
-    <div class="flex flex-col items-center justify-center min-h-[calc(100vh-40px)] py-8">
-        <div class="m-auto w-full max-w-6xl px-4">
-            <h1 class="text-center text-white font-bold text-5xl py-4 uppercase mb-8 tracking-wider">Overwatch Roulette</h1>
-            
-            <div id="roster-container" class="flex flex-col md:flex-row justify-center gap-6 mb-8">
-                </div>
-            
-            <div class="mb-8 text-yellow-400 text-center text-4xl font-bold uppercase tracking-wide drop-shadow-lg" id="hero-name">
-                ¿A quién jugarás?
+    <div class="flex flex-col items-center justify-start min-h-[calc(100vh-40px)] py-8 px-4">
+        
+        <h1 class="text-center text-white font-bold text-5xl py-4 uppercase mb-4 tracking-wider">Overwatch Roulette</h1>
+        
+        <div class="flex flex-col items-center justify-center min-h-[260px] mb-8">
+            <div id="hero-name-container" class="mb-4 transition-all duration-300">
+                <span id="hero-name" class="text-center text-3xl font-bold uppercase tracking-wide px-6 py-2 block">
+                    ¿A quién jugarás?
+                </span>
             </div>
-            
-            <div class="mb-10 flex flex-wrap justify-center gap-4 mx-auto">
-                <a class="type-link py-2 px-6 flex font-bold uppercase text-white text-xl rounded-md bg-yellow-500 transition-colors duration-200" data-typeid="0" href="#">Todos</a>
+
+            <div id="portrait-border" class="bg-gray-700 overflow-hidden rounded-md shadow-2xl relative border-2 border-transparent transition-all duration-300">
+                <div class="absolute inset-0 flex items-center justify-center text-gray-500 z-0">
+                    <svg class="w-12 h-12 opacity-50" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                </div>
+                <img id="hero-portrait" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Hero Portrait" class="w-full h-full object-cover relative z-10 transition-opacity duration-200">
+            </div>
+        </div>
+        
+        <div class="w-full max-w-[1400px]">
+            <div id="roster-container" class="flex flex-col lg:flex-row justify-center items-start gap-4 xl:gap-8 mb-10 w-full">
+                </div>
+        </div>
+        
+        <div class="w-full max-w-4xl mx-auto flex flex-col items-center">
+            <div class="mb-8 flex flex-wrap justify-center gap-4">
+                <a class="type-link py-2 px-6 flex font-bold uppercase text-white text-xl rounded-md bg-orange-600 transition-colors duration-200" data-typeid="0" href="#">Todos</a>
                 <a class="type-link py-2 px-6 flex font-bold uppercase text-white text-xl rounded-md bg-white/10 hover:bg-white/20 transition-colors duration-200" data-typeid="1" href="#">Tanque</a>
                 <a class="type-link py-2 px-6 flex font-bold uppercase text-white text-xl rounded-md bg-white/10 hover:bg-white/20 transition-colors duration-200" data-typeid="2" href="#">DPS</a>
                 <a class="type-link py-2 px-6 flex font-bold uppercase text-white text-xl rounded-md bg-white/10 hover:bg-white/20 transition-colors duration-200" data-typeid="3" href="#">Support</a>
             </div>
             
-            <div class="text-center">
-                <button id="launch-btn" class="stopped ow-yellow-bg w-56 rounded-md uppercase text-white font-bold text-2xl py-3 hover:bg-yellow-600 tracking-widest transition-all duration-200 transform hover:scale-105 shadow-lg">
-                    Barajar
-                </button>
-            </div>
+            <button id="launch-btn" class="stopped ow-orange-bg w-64 rounded-md uppercase text-white font-bold text-2xl py-4 hover:brightness-110 tracking-widest transition-all duration-200 transform hover:scale-105 shadow-xl">
+                Barajar
+            </button>
         </div>
+
     </div>
     <script defer src="src/main.js"></script>
 </body>

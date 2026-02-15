@@ -74,39 +74,43 @@ let isSpinning = false;
 let isStopping = false;
 let currentDelay = 50; 
 
-// Dibuja la cuadrícula separando por roles
+// Dibuja la cuadrícula separando por roles (ajustado para dos filas)
 const renderRoster = () => {
     const container = document.getElementById('roster-container');
-    container.innerHTML = ''; // Limpiamos antes de dibujar
+    container.innerHTML = ''; 
 
     const categories = [
-        { type: TANK, name: 'Tanque' },
-        { type: DPS, name: 'Daño' },
-        { type: SUPPORT, name: 'Apoyo' }
+        { type: TANK, name: 'Tanque', icon: '🛡️' }, // Puedes cambiar los emojis por SVGs después si quieres
+        { type: DPS, name: 'Daño', icon: '⚔️' },
+        { type: SUPPORT, name: 'Apoyo', icon: '✚' }
     ];
 
     categories.forEach(cat => {
         const catHeroes = heroes.filter(h => h.type === cat.type);
         
         const col = document.createElement('div');
-        col.className = 'flex flex-col items-center bg-gray-800/50 p-4 rounded-xl shadow-inner';
+        // Usamos flex-1 para que se distribuyan equitativamente, o anchos fijos según prefieras
+        col.className = 'flex flex-col bg-gray-800/40 p-4 rounded-xl shadow-lg border border-gray-700/50';
         
         const title = document.createElement('h2');
-        title.className = 'text-gray-300 font-bold text-lg mb-3 uppercase tracking-widest';
-        title.innerHTML = cat.name;
+        title.className = 'text-gray-200 font-bold text-sm md:text-md mb-3 uppercase tracking-widest flex items-center gap-2';
+        title.innerHTML = `<span>${cat.icon}</span> ${cat.name}`;
         col.appendChild(title);
 
         const grid = document.createElement('div');
-        grid.className = 'flex flex-wrap justify-center gap-1 w-[260px]'; 
+        // Cambiamos el ancho fijo a algo más fluido. 
+        // max-w-[400px] o similar obligará a que salten a la segunda fila de forma natural
+        grid.className = 'flex flex-wrap gap-1 w-full sm:max-w-[280px] md:max-w-[340px] xl:max-w-[420px]'; 
 
         catHeroes.forEach(hero => {
             const imgContainer = document.createElement('div');
-            imgContainer.className = 'relative w-[50px] h-[60px] transition-all duration-75 ease-in-out bg-gray-600 rounded-sm cursor-pointer';
+            // Miniaturas un poco más apaisadas o cuadradas según el diseño de OW
+            imgContainer.className = 'relative w-[45px] h-[55px] sm:w-[50px] sm:h-[60px] transition-all duration-75 ease-in-out bg-gray-600 rounded cursor-pointer overflow-hidden border border-transparent';
             imgContainer.id = `hero-${hero.portrait}`;
 
             const img = document.createElement('img');
             img.src = preloadedImages[hero.portrait];
-            img.className = 'w-full h-full object-cover rounded-sm border border-transparent opacity-70 transition-opacity';
+            img.className = 'w-full h-full object-cover opacity-60 transition-opacity';
             img.id = `img-${hero.portrait}`;
 
             imgContainer.appendChild(img);
@@ -119,10 +123,9 @@ const renderRoster = () => {
 };
 
 const selectHero = () => {
-    const selectedTypeLink = document.querySelector('.type-link.bg-yellow-500');
+    const selectedTypeLink = document.querySelector('.type-link.bg-orange-600');
     const typeId = parseInt(selectedTypeLink.dataset.typeid, 10);
 
-    // Filtramos usando las constantes (0 es 'Todos')
     const validHeroes = typeId === 0 
         ? heroes 
         : heroes.filter(h => h.type === typeId);
@@ -130,29 +133,76 @@ const selectHero = () => {
     const randomIndex = Math.floor(Math.random() * validHeroes.length);
     const hero = validHeroes[randomIndex];
 
-    // 1. Limpiamos el estado visual de todos los héroes
+    // 1. Limpiamos estado visual del Roster
     heroes.forEach(h => {
         const imgEl = document.getElementById(`img-${h.portrait}`);
         const containerEl = document.getElementById(`hero-${h.portrait}`);
         if(imgEl && containerEl) {
             imgEl.classList.remove('opacity-100');
-            imgEl.classList.add('opacity-70');
-            containerEl.classList.remove('ring-4', 'ring-yellow-400', 'scale-[1.3]', 'z-10', 'shadow-2xl');
+            imgEl.classList.add('opacity-60');
+            containerEl.classList.remove('border-orange-500', 'scale-[1.15]', 'z-10', 'shadow-lg');
+            // Opcional: añadimos un pequeño fondo blanco para simular el borde original
+            containerEl.classList.add('border-transparent');
         }
     });
 
-    // 2. Resaltamos al héroe elegido
+    // 2. Resaltamos al héroe elegido en el Roster
     const activeImg = document.getElementById(`img-${hero.portrait}`);
     const activeContainer = document.getElementById(`hero-${hero.portrait}`);
     
     if(activeImg && activeContainer) {
-        activeImg.classList.remove('opacity-70');
+        activeImg.classList.remove('opacity-60');
         activeImg.classList.add('opacity-100');
-        activeContainer.classList.add('ring-4', 'ring-yellow-400', 'scale-[1.3]', 'z-10', 'shadow-2xl');
+        activeContainer.classList.remove('border-transparent');
+        // Efecto visual más sutil para que no rompa la cuadrícula
+        activeContainer.classList.add('border-2', 'border-orange-500', 'scale-[1.15]', 'z-10', 'shadow-lg');
     }
     
+    // 3. Actualizamos el nombre y el retrato grande
     const heroName = document.getElementById('hero-name');
     heroName.innerHTML = hero.name;
+    
+    const heroPortrait = document.getElementById('hero-portrait');
+    heroPortrait.src = preloadedImages[hero.portrait];
+    
+    // Le damos un poco de borde al retrato grande durante el giro
+    document.getElementById('portrait-border').classList.add('border-orange-600/50');
+};
+
+const setFinalStyles = () => {
+    // Aplicamos los estilos finales al texto y retrato cuando la ruleta se para
+    const nameContainer = document.getElementById('hero-name-container');
+    const nameSpan = document.getElementById('hero-name');
+    const portraitBorder = document.getElementById('portrait-border');
+    
+    // Estilos del contenedor: recuadro naranja
+    nameContainer.classList.add('bg-orange-600', 'rounded-xl', 'shadow-lg', 'transform', 'scale-110');
+    
+    // MUY IMPORTANTE: Quitamos TODOS los colores anteriores antes de poner el blanco
+    nameSpan.classList.remove('text-orange-500', 'text-orange-600', 'text-gray-400'); 
+    nameSpan.classList.add('text-white');
+    
+    // Estilos retrato: borde naranja fuerte
+    portraitBorder.classList.remove('border-transparent', 'border-orange-600/50');
+    portraitBorder.classList.add('border-orange-600', 'ring-4', 'ring-orange-600/30');
+};
+
+const clearFinalStyles = () => {
+    // Quitamos los estilos finales cuando empieza a girar
+    const nameContainer = document.getElementById('hero-name-container');
+    const nameSpan = document.getElementById('hero-name');
+    const portraitBorder = document.getElementById('portrait-border');
+    
+    // Devolvemos el contenedor a su estado normal (sin fondo naranja)
+    nameContainer.classList.remove('bg-orange-600', 'rounded-xl', 'shadow-lg', 'transform', 'scale-110');
+    
+    // MUY IMPORTANTE: Quitamos el blanco y volvemos a poner el naranja
+    nameSpan.classList.remove('text-white', 'text-gray-400');
+    nameSpan.classList.add('text-orange-500'); 
+    
+    // Devolvemos el retrato a su estado normal
+    portraitBorder.classList.remove('border-orange-600', 'ring-4', 'ring-orange-600/30');
+    portraitBorder.classList.add('border-transparent');
 };
 
 const spin = () => {
@@ -164,6 +214,10 @@ const spin = () => {
         if (currentDelay > 600) {
             isSpinning = false;
             isStopping = false;
+            
+            // Llamamos a la función que aplica los estilos finales
+            setFinalStyles();
+            
             const launchBtn = document.getElementById('launch-btn');
             launchBtn.textContent = 'Barajar';
             launchBtn.classList.add('stopped');
@@ -176,8 +230,10 @@ const spin = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Pintamos el Roster nada más cargar la página
     renderRoster();
+
+    // Estado inicial visual
+    document.getElementById('hero-name').classList.add('text-gray-400');
 
     const launchBtn = document.getElementById('launch-btn');
 
@@ -186,6 +242,9 @@ document.addEventListener('DOMContentLoaded', () => {
             isSpinning = true;
             isStopping = false;
             currentDelay = 50;
+            
+            clearFinalStyles(); // Limpiamos estilos antes de girar
+            
             launchBtn.classList.remove('stopped');
             launchBtn.textContent = 'Parar';
             spin();
@@ -202,12 +261,13 @@ document.addEventListener('DOMContentLoaded', () => {
             ev.preventDefault();
             if (isSpinning) return; 
 
+            // Corregido el bug del bg-yellow-500
             document.querySelectorAll('.type-link').forEach(link => {
-                link.classList.remove('bg-yellow-500');
+                link.classList.remove('bg-orange-600');
                 link.classList.add('bg-white/10'); 
             });
             ev.target.classList.remove('bg-white/10');
-            ev.target.classList.add('bg-yellow-500');
+            ev.target.classList.add('bg-orange-600');
         }, false)
     );
 });

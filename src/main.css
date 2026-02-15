@@ -1,20 +1,33 @@
 /* src/main.css */
 
 body {
-    /* La fuente ahora se gestiona directamente, pero la aplicamos aquí por si falla Tailwind */
     font-family: 'Rubik', sans-serif;
 }
 
-.ow-yellow-bg {
-    background-color: #f79d19;
+.ow-orange-bg {
+    background-color: #ED6516;
 }
 
+/* Fijamos tamaño para el retrato central recuperado */
 #portrait-border {
     width: 180px;
-    height: 180px; /* Recomendable fijar una altura para evitar saltos en pantalla */
+    height: 180px; 
+    background-color: rgba(0, 0, 0, 0.3); /* Fondo oscuro por si la imagen tarda */
 }
 
-/* Clases auxiliares para el JS */
-.type-link:not(.bg-yellow-500) {
+.type-link:not(.bg-orange-600) {
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Ocultar barra de scroll horizontal si los iconos se desbordan un poco */
+::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1); 
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3); 
+    border-radius: 4px;
 }
