@@ -109,7 +109,11 @@ const renderRoster = () => {
         col.appendChild(title);
 
         const grid = document.createElement('div');
-        grid.className = 'flex flex-wrap justify-center gap-1 w-full sm:max-w-[280px] md:max-w-[340px] xl:max-w-[420px]';
+        if (cat.type === DPS) {
+            grid.className = 'flex flex-wrap justify-center gap-1 w-full sm:max-w-[340px] md:max-w-[400px] xl:max-w-[450px]';
+        } else {
+            grid.className = 'flex flex-wrap justify-center gap-1 w-full sm:max-w-[230px] md:max-w-[280px] xl:max-w-[340px]';
+        }
 
         catHeroes.forEach(hero => {
             const imgContainer = document.createElement('div');
