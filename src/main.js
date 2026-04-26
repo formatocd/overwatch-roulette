@@ -31,7 +31,7 @@ const heroes = [
     { name: 'Cassidy', type: DPS, portrait: 'cassidy' },
     { name: 'D.VA', type: TANK, portrait: 'dva' },
     { name: 'Domina', type: TANK, portrait: 'domina' },
-    { name: 'Doomfist', type: DPS, portrait: 'doomfist' },
+    { name: 'Doomfist', type: TANK, portrait: 'doomfist' },
     { name: 'Echo', type: DPS, portrait: 'echo' },
     { name: 'Emre', type: DPS, portrait: 'emre' },
     { name: 'Freja', type: DPS, portrait: 'freja' },
