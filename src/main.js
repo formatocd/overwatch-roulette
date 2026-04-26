@@ -57,6 +57,7 @@ const heroes = [
     { name: 'Reaper', type: DPS, portrait: 'reaper' },
     { name: 'Reinhardt', type: TANK, portrait: 'reinhardt' },
     { name: 'Roadhog', type: TANK, portrait: 'roadhog' },
+    { name: 'Sierra', type: DPS, portrait: 'sierra' },
     { name: 'Sigma', type: TANK, portrait: 'sigma' },
     { name: 'Sojourn', type: DPS, portrait: 'sojourn' },
     { name: 'Soldado: 76', type: DPS, portrait: 'soldier-76' },
