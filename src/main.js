@@ -22,33 +22,42 @@ const iconParando = `
 `;
 
 const heroes = [
-    { name: 'Domina', type: TANK, portrait: 'domina' },
-    { name: 'D. VA', type: TANK, portrait: 'dva' },
-    { name: 'Hazard', type: TANK, portrait: 'hazard' },
-    { name: 'Junker Queen', type: TANK, portrait: 'junker-queen' },
-    { name: 'Mauga', type: TANK, portrait: 'mauga' },
-    { name: 'Orisa', type: TANK, portrait: 'orisa' },
-    { name: 'Ramattra', type: TANK, portrait: 'ramattra' },
-    { name: 'Reinhardt', type: TANK, portrait: 'reinhardt' },
-    { name: 'Roadhog', type: TANK, portrait: 'roadhog' },
-    { name: 'Sigma', type: TANK, portrait: 'sigma' },
-    { name: 'Winston', type: TANK, portrait: 'winston' },
-    { name: 'Wrecking Ball', type: TANK, portrait: 'wrecking-ball' },
-    { name: 'Zarya', type: TANK, portrait: 'zarya' },
+    { name: 'Ana', type: SUPPORT, portrait: 'ana' },
     { name: 'Anran', type: DPS, portrait: 'anran' },
     { name: 'Ashe', type: DPS, portrait: 'ashe' },
+    { name: 'Baptiste', type: SUPPORT, portrait: 'baptiste' },
     { name: 'Bastion', type: DPS, portrait: 'bastion' },
+    { name: 'Brigitte', type: SUPPORT, portrait: 'brigitte' },
     { name: 'Cassidy', type: DPS, portrait: 'cassidy' },
-    { name: 'Doomfist', type: DPS, portrait: 'doomfist' },
+    { name: 'D.VA', type: TANK, portrait: 'dva' },
+    { name: 'Domina', type: TANK, portrait: 'domina' },
+    { name: 'Doomfist', type: TANK, portrait: 'doomfist' },
     { name: 'Echo', type: DPS, portrait: 'echo' },
     { name: 'Emre', type: DPS, portrait: 'emre' },
     { name: 'Freja', type: DPS, portrait: 'freja' },
     { name: 'Genji', type: DPS, portrait: 'genji' },
     { name: 'Hanzo', type: DPS, portrait: 'hanzo' },
+    { name: 'Hazard', type: TANK, portrait: 'hazard' },
+    { name: 'Illari', type: SUPPORT, portrait: 'illari' },
+    { name: 'Jetpack Cat', type: SUPPORT, portrait: 'jetpack-cat' },
+    { name: 'Junker Queen', type: TANK, portrait: 'junker-queen' },
     { name: 'Junkrat', type: DPS, portrait: 'junkrat' },
+    { name: 'Juno', type: SUPPORT, portrait: 'juno' },
+    { name: 'Kiriko', type: SUPPORT, portrait: 'kiriko' },
+    { name: 'Lifeweaver', type: SUPPORT, portrait: 'lifeweaver' },
+    { name: 'Lucio', type: SUPPORT, portrait: 'lucio' },
+    { name: 'Mauga', type: TANK, portrait: 'mauga' },
     { name: 'Mei', type: DPS, portrait: 'mei' },
+    { name: 'Mercy', type: SUPPORT, portrait: 'mercy' },
+    { name: 'Mizuki', type: SUPPORT, portrait: 'mizuki' },
+    { name: 'Moira', type: SUPPORT, portrait: 'moira' },
+    { name: 'Orisa', type: TANK, portrait: 'orisa' },
     { name: 'Pharah', type: DPS, portrait: 'pharah' },
+    { name: 'Ramattra', type: TANK, portrait: 'ramattra' },
     { name: 'Reaper', type: DPS, portrait: 'reaper' },
+    { name: 'Reinhardt', type: TANK, portrait: 'reinhardt' },
+    { name: 'Roadhog', type: TANK, portrait: 'roadhog' },
+    { name: 'Sigma', type: TANK, portrait: 'sigma' },
     { name: 'Sojourn', type: DPS, portrait: 'sojourn' },
     { name: 'Soldado: 76', type: DPS, portrait: 'soldier-76' },
     { name: 'Sombra', type: DPS, portrait: 'sombra' },
@@ -58,58 +67,49 @@ const heroes = [
     { name: 'Vendetta', type: DPS, portrait: 'vendetta' },
     { name: 'Venture', type: DPS, portrait: 'venture' },
     { name: 'Widowmaker', type: DPS, portrait: 'widowmaker' },
-    { name: 'Ana', type: SUPPORT, portrait: 'ana' },
-    { name: 'Baptiste', type: SUPPORT, portrait: 'baptiste' },
-    { name: 'Brigitte', type: SUPPORT, portrait: 'brigitte' },
-    { name: 'Illari', type: SUPPORT, portrait: 'illari' },
-    { name: 'Jetpack Cat', type: SUPPORT, portrait: 'jetpack-cat' },
-    { name: 'Juno', type: SUPPORT, portrait: 'juno' },
-    { name: 'Kiriko', type: SUPPORT, portrait: 'kiriko' },
-    { name: 'Lifeweaver', type: SUPPORT, portrait: 'lifeweaver' },
-    { name: 'Lucio', type: SUPPORT, portrait: 'lucio' },
-    { name: 'Mercy', type: SUPPORT, portrait: 'mercy' },
-    { name: 'Mizuki', type: SUPPORT, portrait: 'mizuki' },
-    { name: 'Moira', type: SUPPORT, portrait: 'moira' },
+    { name: 'Winston', type: TANK, portrait: 'winston' },
+    { name: 'Wrecking Ball', type: TANK, portrait: 'wrecking-ball' },
     { name: 'Wuyang', type: SUPPORT, portrait: 'wuyang' },
+    { name: 'Zarya', type: TANK, portrait: 'zarya' },
     { name: 'Zenyatta', type: SUPPORT, portrait: 'zenyatta' }
 ];
 
-const preloadedImages = {}; 
+const preloadedImages = {};
 heroes.forEach(hero => {
     const img = new Image();
     img.src = `portraits/${hero.portrait}.png`;
-    preloadedImages[hero.portrait] = img.src; 
+    preloadedImages[hero.portrait] = img.src;
 });
 
 let timeoutId;
 let isSpinning = false;
 let isStopping = false;
-let currentDelay = 50; 
+let currentDelay = 50;
 
 const renderRoster = () => {
     const container = document.getElementById('roster-container');
-    container.innerHTML = ''; 
+    container.innerHTML = '';
 
     const categories = [
-        { type: TANK, name: 'Tank', icon: '🛡️' }, 
+        { type: TANK, name: 'Tank', icon: '🛡️' },
         { type: DPS, name: 'DPS', icon: '⚔️' },
         { type: SUPPORT, name: 'Support', icon: '✚' }
     ];
 
     categories.forEach(cat => {
         const catHeroes = heroes.filter(h => h.type === cat.type);
-        
+
         const col = document.createElement('div');
         col.className = 'role-column flex flex-col items-start px-2 sm:px-0 mb-6 lg:mb-0 transition-all duration-500 opacity-100';
         col.dataset.roleType = cat.type;
-        
+
         const title = document.createElement('h2');
         title.className = 'text-gray-200 text-sm md:text-base mb-2 pb-1 border-b-[3px] border-orange-600 uppercase tracking-widest flex items-center gap-2 w-full';
         title.innerHTML = `<span>${cat.icon}</span> ${cat.name}`;
         col.appendChild(title);
 
         const grid = document.createElement('div');
-        grid.className = 'flex flex-wrap justify-center gap-1 w-full sm:max-w-[280px] md:max-w-[340px] xl:max-w-[420px]'; 
+        grid.className = 'flex flex-wrap justify-center gap-1 w-full sm:max-w-[280px] md:max-w-[340px] xl:max-w-[420px]';
 
         catHeroes.forEach(hero => {
             const imgContainer = document.createElement('div');
@@ -134,8 +134,8 @@ const selectHero = () => {
     const selectedTypeLink = document.querySelector('.type-link.bg-orange-600');
     const typeId = parseInt(selectedTypeLink.dataset.typeid, 10);
 
-    const validHeroes = typeId === 0 
-        ? heroes 
+    const validHeroes = typeId === 0
+        ? heroes
         : heroes.filter(h => h.type === typeId);
 
     const randomIndex = Math.floor(Math.random() * validHeroes.length);
@@ -144,7 +144,7 @@ const selectHero = () => {
     heroes.forEach(h => {
         const imgEl = document.getElementById(`img-${h.portrait}`);
         const containerEl = document.getElementById(`hero-${h.portrait}`);
-        if(imgEl && containerEl) {
+        if (imgEl && containerEl) {
             imgEl.classList.remove('opacity-100');
             imgEl.classList.add('opacity-60');
             containerEl.classList.remove('border-orange-500', 'scale-[1.15]', 'z-10', 'shadow-lg');
@@ -154,20 +154,20 @@ const selectHero = () => {
 
     const activeImg = document.getElementById(`img-${hero.portrait}`);
     const activeContainer = document.getElementById(`hero-${hero.portrait}`);
-    
-    if(activeImg && activeContainer) {
+
+    if (activeImg && activeContainer) {
         activeImg.classList.remove('opacity-60');
         activeImg.classList.add('opacity-100');
         activeContainer.classList.remove('border-transparent');
         activeContainer.classList.add('border-2', 'border-orange-500', 'scale-[1.15]', 'z-10', 'shadow-lg');
     }
-    
+
     const heroName = document.getElementById('hero-name');
     heroName.innerHTML = hero.name;
-    
+
     const heroPortrait = document.getElementById('hero-portrait');
     heroPortrait.src = preloadedImages[hero.portrait];
-    
+
     document.getElementById('portrait-border').classList.add('border-orange-600/50');
 };
 
@@ -175,12 +175,12 @@ const setFinalStyles = () => {
     const nameContainer = document.getElementById('hero-name-container');
     const nameSpan = document.getElementById('hero-name');
     const portraitBorder = document.getElementById('portrait-border');
-    
+
     nameContainer.classList.add('bg-orange-600', 'rounded-xl', 'shadow-lg', 'transform', 'scale-110');
-    
-    nameSpan.classList.remove('text-orange-500', 'text-orange-600', 'text-gray-400'); 
+
+    nameSpan.classList.remove('text-orange-500', 'text-orange-600', 'text-gray-400');
     nameSpan.classList.add('text-white');
-    
+
     portraitBorder.classList.remove('border-transparent', 'border-orange-600/50');
     portraitBorder.classList.add('border-orange-600', 'ring-4', 'ring-orange-600/30');
 };
@@ -189,12 +189,12 @@ const clearFinalStyles = () => {
     const nameContainer = document.getElementById('hero-name-container');
     const nameSpan = document.getElementById('hero-name');
     const portraitBorder = document.getElementById('portrait-border');
-    
+
     nameContainer.classList.remove('bg-orange-600', 'rounded-xl', 'shadow-lg', 'transform', 'scale-110');
-    
+
     nameSpan.classList.remove('text-white', 'text-gray-400');
-    nameSpan.classList.add('text-orange-500'); 
-    
+    nameSpan.classList.add('text-orange-500');
+
     portraitBorder.classList.remove('border-orange-600', 'ring-4', 'ring-orange-600/30');
     portraitBorder.classList.add('border-transparent');
 };
@@ -203,20 +203,20 @@ const spin = () => {
     selectHero();
 
     if (isStopping) {
-        currentDelay *= 1.15; 
-        
+        currentDelay *= 1.15;
+
         if (currentDelay > 600) {
             isSpinning = false;
             isStopping = false;
-            
+
             setFinalStyles();
-            
+
             const launchBtn = document.getElementById('launch-btn');
             launchBtn.innerHTML = iconBarajar;
             launchBtn.title = 'Barajar';
             launchBtn.classList.add('stopped');
             launchBtn.disabled = false;
-            return; 
+            return;
         }
     }
 
@@ -235,9 +235,9 @@ document.addEventListener('DOMContentLoaded', () => {
             isSpinning = true;
             isStopping = false;
             currentDelay = 50;
-            
-            clearFinalStyles(); 
-            
+
+            clearFinalStyles();
+
             launchBtn.classList.remove('stopped');
             launchBtn.innerHTML = iconParar;
             launchBtn.title = 'Parar';
@@ -246,29 +246,29 @@ document.addEventListener('DOMContentLoaded', () => {
             isStopping = true;
             launchBtn.innerHTML = iconParando;
             launchBtn.title = 'Parando...';
-            launchBtn.disabled = true; 
+            launchBtn.disabled = true;
         }
     });
 
     const typeLinks = document.querySelectorAll('.type-link');
-    typeLinks.forEach(typeLink => 
+    typeLinks.forEach(typeLink =>
         typeLink.addEventListener('click', (ev) => {
             ev.preventDefault();
-            if (isSpinning) return; 
+            if (isSpinning) return;
 
             document.querySelectorAll('.type-link').forEach(link => {
                 link.classList.remove('bg-orange-600');
-                link.classList.add('bg-white/10', 'hover:bg-white/20'); 
+                link.classList.add('bg-white/10', 'hover:bg-white/20');
             });
-            
+
             ev.currentTarget.classList.remove('bg-white/10', 'hover:bg-white/20');
             ev.currentTarget.classList.add('bg-orange-600');
 
             const selectedType = parseInt(ev.currentTarget.dataset.typeid, 10);
-            
+
             document.querySelectorAll('.role-column').forEach(col => {
                 const colType = parseInt(col.dataset.roleType, 10);
-                
+
                 if (selectedType === 0 || selectedType === colType) {
                     col.classList.remove('opacity-30', 'grayscale', 'blur-[1px]', 'pointer-events-none');
                     col.classList.add('opacity-100');
