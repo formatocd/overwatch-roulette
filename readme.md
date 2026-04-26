@@ -1,6 +1,9 @@
 # Overwatch Roulette
 
-[![Netlify Status](https://img.shields.io/badge/Netlify-Deployed-00C7B7?style=flat&logo=netlify)](https://overwatch-roulette.netlify.app/)
+[![English](https://img.shields.io/badge/Language-English-blue)](readme.md)
+[![Español](https://img.shields.io/badge/Idioma-Español-red)](readme.es.md)
+
+[![Vercel Status](https://img.shields.io/badge/Vercel-Deployed-000000?style=flat&logo=vercel&logoColor=white)](https://overwatch-roulette.vercel.app/)
 [![Docker Image Version](https://img.shields.io/docker/v/formatocd/overwatch-roulette?logo=docker&label=Docker%20Hub)](https://hub.docker.com/r/formatocd/overwatch-roulette)
 [![Docker Image Size](https://img.shields.io/docker/image-size/formatocd/overwatch-roulette?logo=docker)](https://hub.docker.com/r/formatocd/overwatch-roulette)
 
@@ -8,9 +11,9 @@ This is a **non-profit** tool to randomly select an Overwatch character. The ima
 
 ## Get Overwatch Roulette
 
-### 🌐 Play on Netlify (Recommended)
-This project is published on [Netlify](https://www.netlify.com/). 
-Just navigate to [Overwatch Roulette](https://overwatch-roulette.netlify.app/) and enjoy!
+### 🌐 Play on Vercel (Recommended)
+This project is published on [Vercel](https://www.vercel.com/). 
+Just navigate to [Overwatch Roulette](https://overwatch-roulette.vercel.app/) and enjoy!
 
 ### 💻 From GitHub (Local version)
 Clone the repository to your local machine: 
