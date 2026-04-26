@@ -5,7 +5,6 @@ on:
     types: [published]
 
 env:
-  # El nombre exacto de tu imagen en Docker Hub
   IMAGE_NAME: formatocd/overwatch-roulette
 
 jobs:
