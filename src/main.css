@@ -28,3 +28,20 @@ body {
     background: rgba(255, 255, 255, 0.3); 
     border-radius: 4px;
 }
+
+.excluded::after {
+    content: "✖";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #ef4444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    z-index: 20;
+    cursor: pointer;
+}

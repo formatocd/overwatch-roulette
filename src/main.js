@@ -87,6 +87,45 @@ let isSpinning = false;
 let isStopping = false;
 let currentDelay = 50;
 
+const excludedHeroes = new Set();
+
+const toggleCleanButton = () => {
+    const btn = document.getElementById('clean-selected-btn');
+    if (excludedHeroes.size > 0) {
+        btn.classList.remove('hidden');
+    } else {
+        btn.classList.add('hidden');
+    }
+};
+
+const updateLaunchButtonState = () => {
+    if (isSpinning || isStopping) return;
+
+    const launchBtn = document.getElementById('launch-btn');
+    if (!launchBtn) return;
+
+    const selectedTypeLink = document.querySelector('.type-link.bg-orange-600');
+    let typeId = 0;
+    if (selectedTypeLink) {
+        typeId = parseInt(selectedTypeLink.dataset.typeid, 10);
+    }
+    
+    let validHeroes = typeId === 0
+        ? heroes
+        : heroes.filter(h => h.type === typeId);
+    validHeroes = validHeroes.filter(h => !excludedHeroes.has(h.portrait));
+    
+    if (validHeroes.length < 2) {
+        launchBtn.disabled = true;
+        launchBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        launchBtn.classList.remove('hover:brightness-110', 'hover:scale-105', 'shadow-xl');
+    } else {
+        launchBtn.disabled = false;
+        launchBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        launchBtn.classList.add('hover:brightness-110', 'hover:scale-105', 'shadow-xl');
+    }
+};
+
 const renderRoster = () => {
     const container = document.getElementById('roster-container');
     container.innerHTML = '';
@@ -121,6 +160,24 @@ const renderRoster = () => {
             imgContainer.className = 'relative w-[45px] h-[55px] sm:w-[50px] sm:h-[60px] transition-all duration-75 ease-in-out bg-gray-600 rounded cursor-pointer overflow-hidden border border-transparent';
             imgContainer.id = `hero-${hero.portrait}`;
 
+            if (excludedHeroes.has(hero.portrait)) {
+                imgContainer.classList.add('excluded');
+            }
+
+            imgContainer.addEventListener('click', () => {
+                if (isSpinning) return;
+                
+                if (excludedHeroes.has(hero.portrait)) {
+                    excludedHeroes.delete(hero.portrait);
+                    imgContainer.classList.remove('excluded');
+                } else {
+                    excludedHeroes.add(hero.portrait);
+                    imgContainer.classList.add('excluded');
+                }
+                toggleCleanButton();
+                updateLaunchButtonState();
+            });
+
             const img = document.createElement('img');
             img.src = preloadedImages[hero.portrait];
             img.className = 'w-full h-full object-cover opacity-60 transition-opacity';
@@ -139,9 +196,11 @@ const selectHero = () => {
     const selectedTypeLink = document.querySelector('.type-link.bg-orange-600');
     const typeId = parseInt(selectedTypeLink.dataset.typeid, 10);
 
-    const validHeroes = typeId === 0
+    let validHeroes = typeId === 0
         ? heroes
         : heroes.filter(h => h.type === typeId);
+
+    validHeroes = validHeroes.filter(h => !excludedHeroes.has(h.portrait));
 
     const randomIndex = Math.floor(Math.random() * validHeroes.length);
     const hero = validHeroes[randomIndex];
@@ -220,7 +279,7 @@ const spin = () => {
             launchBtn.innerHTML = iconBarajar;
             launchBtn.title = 'Barajar';
             launchBtn.classList.add('stopped');
-            launchBtn.disabled = false;
+            updateLaunchButtonState();
             return;
         }
     }
@@ -231,12 +290,36 @@ const spin = () => {
 document.addEventListener('DOMContentLoaded', () => {
     renderRoster();
 
+    const cleanBtn = document.getElementById('clean-selected-btn');
+    cleanBtn.addEventListener('click', () => {
+        if (isSpinning) return;
+        excludedHeroes.clear();
+        document.querySelectorAll('.excluded').forEach(el => {
+            el.classList.remove('excluded');
+        });
+        toggleCleanButton();
+        updateLaunchButtonState();
+    });
+
     const launchBtn = document.getElementById('launch-btn');
 
     launchBtn.innerHTML = iconBarajar;
 
     launchBtn.addEventListener('click', () => {
         if (!isSpinning) {
+            const selectedTypeLink = document.querySelector('.type-link.bg-orange-600');
+            const typeId = parseInt(selectedTypeLink.dataset.typeid, 10);
+            
+            let validHeroes = typeId === 0
+                ? heroes
+                : heroes.filter(h => h.type === typeId);
+            validHeroes = validHeroes.filter(h => !excludedHeroes.has(h.portrait));
+            
+            if (validHeroes.length === 0) {
+                alert("No hay personajes disponibles para esta categoría.");
+                return;
+            }
+
             isSpinning = true;
             isStopping = false;
             currentDelay = 50;
@@ -282,6 +365,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     col.classList.add('opacity-30', 'grayscale', 'blur-[1px]', 'pointer-events-none');
                 }
             });
+            updateLaunchButtonState();
         }, false)
     );
+    
+    updateLaunchButtonState();
 });
