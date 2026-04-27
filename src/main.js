@@ -89,6 +89,15 @@ let currentDelay = 50;
 
 const excludedHeroes = new Set();
 
+const toggleCleanButton = () => {
+    const btn = document.getElementById('clean-selected-btn');
+    if (excludedHeroes.size > 0) {
+        btn.classList.remove('hidden');
+    } else {
+        btn.classList.add('hidden');
+    }
+};
+
 const renderRoster = () => {
     const container = document.getElementById('roster-container');
     container.innerHTML = '';
@@ -137,6 +146,7 @@ const renderRoster = () => {
                     excludedHeroes.add(hero.portrait);
                     imgContainer.classList.add('excluded');
                 }
+                toggleCleanButton();
             });
 
             const img = document.createElement('img');
@@ -250,6 +260,16 @@ const spin = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     renderRoster();
+
+    const cleanBtn = document.getElementById('clean-selected-btn');
+    cleanBtn.addEventListener('click', () => {
+        if (isSpinning) return;
+        excludedHeroes.clear();
+        document.querySelectorAll('.excluded').forEach(el => {
+            el.classList.remove('excluded');
+        });
+        toggleCleanButton();
+    });
 
     const launchBtn = document.getElementById('launch-btn');
 
