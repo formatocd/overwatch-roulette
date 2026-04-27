@@ -3,3 +3,6 @@
 Dockerfile
 readme.md
 .vercel
+.env.local
+node_modules
+.gitignore

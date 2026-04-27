@@ -1,0 +1,36 @@
+name: Generate and Upload ZIP on Release
+
+on:
+  release:
+    types: [published]
+
+# IMPORTANTE: Asegura que el token de GitHub tenga permisos para modificar la Release
+permissions:
+  contents: write
+
+jobs:
+  upload-zip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v4
+
+      # (Opcional) Si necesitas compilar algo antes de empaquetarlo, pon esos pasos aquí
+      # - name: Instalar dependencias y compilar
+      #   run: |
+      #     npm install
+      #     npm run build
+
+      - name: Crear archivo ZIP con ficheros específicos
+        # El comando 'zip -r' empaqueta de forma recursiva. 
+        # Pon el nombre del zip final, seguido de los archivos o carpetas que quieras incluir.
+        run: |
+          zip -r overwatch-roulette-${{ github.event.release.tag_name }}.zip public/ src/ index.html README.es.md readme.md CHANGELOG.md
+
+      - name: Subir el ZIP a la Release de GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          files: overwatch-roulette-${{ github.event.release.tag_name }}.zip
+        env:
+          # GitHub provee este token automáticamente, no tienes que crearlo en los Secrets
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
