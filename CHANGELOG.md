@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-04-27
+### Added
+- Select heroes to exclude from the roulette
+- Automatic ZIP file generation and upload on release
+
+### Changed
+- Vercel deploy on release
+
 ## [2.1.0] - 2026-04-26
 ### Added
 - New hero: Sierra
