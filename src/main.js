@@ -98,6 +98,34 @@ const toggleCleanButton = () => {
     }
 };
 
+const updateLaunchButtonState = () => {
+    if (isSpinning || isStopping) return;
+
+    const launchBtn = document.getElementById('launch-btn');
+    if (!launchBtn) return;
+
+    const selectedTypeLink = document.querySelector('.type-link.bg-orange-600');
+    let typeId = 0;
+    if (selectedTypeLink) {
+        typeId = parseInt(selectedTypeLink.dataset.typeid, 10);
+    }
+    
+    let validHeroes = typeId === 0
+        ? heroes
+        : heroes.filter(h => h.type === typeId);
+    validHeroes = validHeroes.filter(h => !excludedHeroes.has(h.portrait));
+    
+    if (validHeroes.length < 2) {
+        launchBtn.disabled = true;
+        launchBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        launchBtn.classList.remove('hover:brightness-110', 'hover:scale-105', 'shadow-xl');
+    } else {
+        launchBtn.disabled = false;
+        launchBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        launchBtn.classList.add('hover:brightness-110', 'hover:scale-105', 'shadow-xl');
+    }
+};
+
 const renderRoster = () => {
     const container = document.getElementById('roster-container');
     container.innerHTML = '';
@@ -147,6 +175,7 @@ const renderRoster = () => {
                     imgContainer.classList.add('excluded');
                 }
                 toggleCleanButton();
+                updateLaunchButtonState();
             });
 
             const img = document.createElement('img');
@@ -250,7 +279,7 @@ const spin = () => {
             launchBtn.innerHTML = iconBarajar;
             launchBtn.title = 'Barajar';
             launchBtn.classList.add('stopped');
-            launchBtn.disabled = false;
+            updateLaunchButtonState();
             return;
         }
     }
@@ -269,6 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
             el.classList.remove('excluded');
         });
         toggleCleanButton();
+        updateLaunchButtonState();
     });
 
     const launchBtn = document.getElementById('launch-btn');
@@ -335,6 +365,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     col.classList.add('opacity-30', 'grayscale', 'blur-[1px]', 'pointer-events-none');
                 }
             });
+            updateLaunchButtonState();
         }, false)
     );
+    
+    updateLaunchButtonState();
 });
