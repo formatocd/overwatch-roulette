@@ -87,6 +87,8 @@ let isSpinning = false;
 let isStopping = false;
 let currentDelay = 50;
 
+const excludedHeroes = new Set();
+
 const renderRoster = () => {
     const container = document.getElementById('roster-container');
     container.innerHTML = '';
@@ -121,6 +123,22 @@ const renderRoster = () => {
             imgContainer.className = 'relative w-[45px] h-[55px] sm:w-[50px] sm:h-[60px] transition-all duration-75 ease-in-out bg-gray-600 rounded cursor-pointer overflow-hidden border border-transparent';
             imgContainer.id = `hero-${hero.portrait}`;
 
+            if (excludedHeroes.has(hero.portrait)) {
+                imgContainer.classList.add('excluded');
+            }
+
+            imgContainer.addEventListener('click', () => {
+                if (isSpinning) return;
+                
+                if (excludedHeroes.has(hero.portrait)) {
+                    excludedHeroes.delete(hero.portrait);
+                    imgContainer.classList.remove('excluded');
+                } else {
+                    excludedHeroes.add(hero.portrait);
+                    imgContainer.classList.add('excluded');
+                }
+            });
+
             const img = document.createElement('img');
             img.src = preloadedImages[hero.portrait];
             img.className = 'w-full h-full object-cover opacity-60 transition-opacity';
@@ -139,9 +157,11 @@ const selectHero = () => {
     const selectedTypeLink = document.querySelector('.type-link.bg-orange-600');
     const typeId = parseInt(selectedTypeLink.dataset.typeid, 10);
 
-    const validHeroes = typeId === 0
+    let validHeroes = typeId === 0
         ? heroes
         : heroes.filter(h => h.type === typeId);
+
+    validHeroes = validHeroes.filter(h => !excludedHeroes.has(h.portrait));
 
     const randomIndex = Math.floor(Math.random() * validHeroes.length);
     const hero = validHeroes[randomIndex];
@@ -237,6 +257,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     launchBtn.addEventListener('click', () => {
         if (!isSpinning) {
+            const selectedTypeLink = document.querySelector('.type-link.bg-orange-600');
+            const typeId = parseInt(selectedTypeLink.dataset.typeid, 10);
+            
+            let validHeroes = typeId === 0
+                ? heroes
+                : heroes.filter(h => h.type === typeId);
+            validHeroes = validHeroes.filter(h => !excludedHeroes.has(h.portrait));
+            
+            if (validHeroes.length === 0) {
+                alert("No hay personajes disponibles para esta categoría.");
+                return;
+            }
+
             isSpinning = true;
             isStopping = false;
             currentDelay = 50;
