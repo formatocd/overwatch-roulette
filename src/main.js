@@ -57,6 +57,7 @@ const heroes = [
     { name: 'Reaper', type: DPS, portrait: 'reaper' },
     { name: 'Reinhardt', type: TANK, portrait: 'reinhardt' },
     { name: 'Roadhog', type: TANK, portrait: 'roadhog' },
+    { name: 'Shion', type: DPS, portrait: 'shion' },
     { name: 'Sierra', type: DPS, portrait: 'sierra' },
     { name: 'Sigma', type: TANK, portrait: 'sigma' },
     { name: 'Sojourn', type: DPS, portrait: 'sojourn' },
@@ -109,12 +110,12 @@ const updateLaunchButtonState = () => {
     if (selectedTypeLink) {
         typeId = parseInt(selectedTypeLink.dataset.typeid, 10);
     }
-    
+
     let validHeroes = typeId === 0
         ? heroes
         : heroes.filter(h => h.type === typeId);
     validHeroes = validHeroes.filter(h => !excludedHeroes.has(h.portrait));
-    
+
     if (validHeroes.length < 2) {
         launchBtn.disabled = true;
         launchBtn.classList.add('opacity-50', 'cursor-not-allowed');
@@ -166,7 +167,7 @@ const renderRoster = () => {
 
             imgContainer.addEventListener('click', () => {
                 if (isSpinning) return;
-                
+
                 if (excludedHeroes.has(hero.portrait)) {
                     excludedHeroes.delete(hero.portrait);
                     imgContainer.classList.remove('excluded');
@@ -309,12 +310,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isSpinning) {
             const selectedTypeLink = document.querySelector('.type-link.bg-orange-600');
             const typeId = parseInt(selectedTypeLink.dataset.typeid, 10);
-            
+
             let validHeroes = typeId === 0
                 ? heroes
                 : heroes.filter(h => h.type === typeId);
             validHeroes = validHeroes.filter(h => !excludedHeroes.has(h.portrait));
-            
+
             if (validHeroes.length === 0) {
                 alert("No hay personajes disponibles para esta categoría.");
                 return;
@@ -368,6 +369,6 @@ document.addEventListener('DOMContentLoaded', () => {
             updateLaunchButtonState();
         }, false)
     );
-    
+
     updateLaunchButtonState();
 });
