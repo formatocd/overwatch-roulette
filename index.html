@@ -6,67 +6,81 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Overwatch Roulette</title>
-    
+
     <link rel="icon" type="image/png" href="portraits/00.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="src/main.css">
 </head>
 
-<body class="bg-gradient-to-b from-gray-500 to-gray-800 min-h-screen font-rubik text-white overflow-x-hidden flex flex-col">
-    
+<body
+    class="bg-gradient-to-b from-gray-500 to-gray-800 min-h-screen font-rubik text-white overflow-x-hidden flex flex-col">
+
     <div class="flex-grow flex flex-col items-center justify-start py-8 px-4 w-full">
-        
-        <h1 class="text-center text-white font-bold text-4xl md:text-5xl py-4 uppercase mb-2 tracking-wider">Overwatch Roulette</h1>
-        
+
+        <h1 class="text-center text-white font-bold text-4xl md:text-5xl py-4 uppercase mb-2 tracking-wider">Overwatch
+            Roulette</h1>
+
         <div class="flex flex-col items-center justify-center w-full max-w-5xl mx-auto mb-10">
-            
+
             <div id="hero-name-container" class="mb-6 transition-all duration-300">
-                <span id="hero-name" class="text-center text-2xl md:text-3xl font-bold uppercase tracking-wide px-6 py-2 block text-gray-400">
+                <span id="hero-name"
+                    class="text-center text-2xl md:text-3xl font-bold uppercase tracking-wide px-6 py-2 block text-gray-400">
                     Unknown
                 </span>
             </div>
 
             <div class="flex flex-row items-center justify-between w-full">
-                
+
                 <div class="flex-1 flex justify-end pr-4 sm:pr-8 md:pr-12">
-                    <div class="flex flex-row flex-wrap justify-end gap-2 sm:gap-3 md:gap-4 max-w-[140px] lg:max-w-none">
-                        <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-xs sm:text-sm bg-orange-600 transition-all duration-200 shadow-lg hover:scale-110" data-typeid="0" href="#" title="All">
+                    <div
+                        class="flex flex-row flex-wrap justify-end gap-2 sm:gap-3 md:gap-4 max-w-[140px] lg:max-w-none">
+                        <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-xs sm:text-sm bg-orange-600 transition-all duration-200 shadow-lg hover:scale-110"
+                            data-typeid="0" href="#" title="All">
                             ALL
                         </a>
-                        <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-lg sm:text-xl md:text-2xl bg-white/10 hover:bg-white/20 transition-all duration-200 shadow-lg hover:scale-110" data-typeid="1" href="#" title="Tank">
+                        <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-lg sm:text-xl md:text-2xl bg-white/10 hover:bg-white/20 transition-all duration-200 shadow-lg hover:scale-110"
+                            data-typeid="1" href="#" title="Tank">
                             🛡️
                         </a>
-                        <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-lg sm:text-xl md:text-2xl bg-white/10 hover:bg-white/20 transition-all duration-200 shadow-lg hover:scale-110" data-typeid="2" href="#" title="DPS">
+                        <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-lg sm:text-xl md:text-2xl bg-white/10 hover:bg-white/20 transition-all duration-200 shadow-lg hover:scale-110"
+                            data-typeid="2" href="#" title="DPS">
                             ⚔️
                         </a>
-                        <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-xl sm:text-2xl md:text-3xl bg-white/10 hover:bg-white/20 transition-all duration-200 shadow-lg hover:scale-110" data-typeid="3" href="#" title="Support">
+                        <a class="type-link w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center font-bold text-white text-xl sm:text-2xl md:text-3xl bg-white/10 hover:bg-white/20 transition-all duration-200 shadow-lg hover:scale-110"
+                            data-typeid="3" href="#" title="Support">
                             ✚
                         </a>
                     </div>
                 </div>
 
-                <div id="portrait-border" class="bg-gray-700 overflow-hidden rounded-xl shadow-2xl relative border-2 border-transparent transition-all duration-300 flex-shrink-0">
-                    <img id="hero-portrait" src="portraits/00.png" alt="Hero Portrait" class="w-full h-full object-cover relative z-10 transition-opacity duration-200">
+                <div id="portrait-border"
+                    class="bg-gray-700 overflow-hidden rounded-xl shadow-2xl relative border-2 border-transparent transition-all duration-300 flex-shrink-0">
+                    <img id="hero-portrait" src="portraits/00.png" alt="Hero Portrait"
+                        class="w-full h-full object-cover relative z-10 transition-opacity duration-200">
                 </div>
 
                 <div class="flex-1 flex justify-start pl-4 sm:pl-8 md:pl-12">
-                    <button id="launch-btn" title="Barajar" class="stopped ow-orange-bg w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all duration-200 transform hover:scale-105 shadow-xl">
-                        </button>
+                    <button id="launch-btn" title="Barajar"
+                        class="stopped ow-orange-bg w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center text-white hover:brightness-110 transition-all duration-200 transform hover:scale-105 shadow-xl">
+                    </button>
                 </div>
-                
+
             </div>
         </div>
-        
+
         <div class="w-full max-w-[1400px]">
-            <div id="roster-container" class="flex flex-col lg:flex-row justify-center items-start gap-4 xl:gap-8 mb-4 w-full">
-                </div>
-            
+            <div id="roster-container"
+                class="flex flex-col lg:flex-row justify-center items-start gap-4 xl:gap-8 mb-4 w-full">
+            </div>
+
             <div class="flex justify-center mt-4 mb-8">
-                <button id="clean-selected-btn" class="hidden ow-orange-bg hover:brightness-110 text-white font-bold py-2 px-6 rounded-full shadow-lg transition-all duration-200 transform hover:scale-105">
+                <button id="clean-selected-btn"
+                    class="hidden ow-orange-bg hover:brightness-110 text-white font-bold py-2 px-6 rounded-full shadow-lg transition-all duration-200 transform hover:scale-105">
                     CLEAN SELECTED
                 </button>
             </div>
@@ -74,10 +88,14 @@
 
     </div>
 
-    <div class="p-3 text-gray-700 text-center bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] w-full mt-auto relative z-50">
-        Created by <a class="underline hover:text-blue-500 font-medium" href="https://twitter.com/formatocd" target="_blank">Carlos Durán</a> (<a class="underline hover:text-blue-500 font-medium" href="https://twitter.com/frostylogan" target="_blank">FrostyLogan</a>)
+    <div
+        class="p-3 text-gray-700 text-center bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] w-full mt-auto relative z-50">
+        Created by <a class="underline hover:text-blue-500 font-medium"
+            href="https://github.com/formatocd/overwatch-roulette" target="_blank">Carlos Durán</a> (<a
+            class="underline hover:text-blue-500 font-medium" href="https://twitter.com/frostylogan"
+            target="_blank">FrostyLogan</a>)
     </div>
-    
+
     <script defer src="src/main.js"></script>
 </body>
 

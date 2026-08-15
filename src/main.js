@@ -29,6 +29,7 @@ const heroes = [
     { name: 'Bastion', type: DPS, portrait: 'bastion' },
     { name: 'Brigitte', type: SUPPORT, portrait: 'brigitte' },
     { name: 'Cassidy', type: DPS, portrait: 'cassidy' },
+    { name: 'D.MON', type: TANK, portrait: 'dmon' },
     { name: 'D.VA', type: TANK, portrait: 'dva' },
     { name: 'Domina', type: TANK, portrait: 'domina' },
     { name: 'Doomfist', type: TANK, portrait: 'doomfist' },
